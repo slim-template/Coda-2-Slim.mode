@@ -1,99 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE syntax SYSTEM "syntax.dtd">
+
 <syntax>
     <head>
-        <name>Slim Syntax</name>
+        <name>Slim</name>
         <!-- See http://slim-lang.com/docs.html -->
         <!-- Known bugs: does not handle multi-line blocks. -->
 
-        <autocompleteoptions use-spelling-dictionary="no" />
+        <!-- <autocompleteoptions use-spelling-dictionary="no" /> -->
 
         <charsintokens>
-            <![CDATA[_0987654321abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#%.]]>
+          <![CDATA[_0987654321abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#%.]]>
         </charsintokens>
+        <charsincompletion>
+          <![CDATA[_0987654321abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-@/=!]]>
+        </charsincompletion>
+        <folding toplevel="3"/>
     </head>
 
     <states>
-        <default id="Base" color="#000" inverted-color="#fff">
-
-            <!-- Colors:
-                elements:   #a60096
-                attributes: #b05400
-                comments:   #008627
-                contents:   #3c00ba
-                id, class:  #e200d2
-                code:       #910018
-            -->
+        <default id="Base">
         
-			<keywords id="HTML Element" color="#a60096" useforautocomplete="no">
-				<regex>^\s*(\w[\w\:\_\-]*)</regex>
-			</keywords>
+    			<keywords id="HTML Element" scope="markup.tag" useautocompletefrommode="HTML" foldable="no" indent="yes">
+    				<regex>^\s*(\w[\w\:\_\-]*)</regex>
+    			</keywords>
+    
+    			<keywords id="HTML ID Shortcut" scope="style.value.keyword">
+    				<regex>^\s*[\w\:\_\-\.]*(\#[\w\:\_\-]*)</regex>
+    			</keywords>
+    
+    			<keywords id="HTML Class Shortcut" scope="style.value.keyword">
+    				<regex>^\s*[\w\:\_\-\#]*(\.[\w\:\_\-\.]*)</regex>
+    			</keywords>
 
-			<keywords id="HTML ID Shortcut" color="#e200d2" useforautocomplete="no">
-				<regex>^\s*[\w\:\_\-\.]*(\#[\w\:\_\-]*)</regex>
-			</keywords>
 
-			<keywords id="HTML Class Shortcut" color="#e200d2" useforautocomplete="no">
-				<regex>^\s*[\w\:\_\-\#]*(\.[\w\:\_\-\.]*)</regex>
-			</keywords>
+    
+    			<state id="HTML Comment" type="comment" scope="style.comment">
+    				<begin><regex>^\s*\/[\!\[]</regex></begin>
+    				<end><regex>[\r\n]</regex></end>
+    				
+    				<import mode="Base" state="EmailAndURLContainerState" keywords-only="yes"/>
+    			</state>
+    
+    			<state id="Slim Comment" type="comment" scope="style.comment">
+    				<begin>
+    				  <regex>^\s*\/</regex>
+    				</begin>
+    				<end>
+    				  <regex>[\r\n]</regex>
+    				</end>
+    				
+    				<import mode="Base" state="EmailAndURLContainerState" keywords-only="yes"/>
+    			</state>
 
-			<state id="HTML Comment" color="#008627" useforautocomplete="no">
-				<begin><regex>^\s*\/[\!\[]</regex></begin>
-				<end><regex>[\r\n]</regex></end>
-			</state>
+    			
+    
+    			<keywords id="HTML Attribute" scope="markup.tag.attribute.name">
+    				<regex>(\w[\w\:\_\-]*)=</regex>
+    			</keywords>
+    
+    			<keywords id="HTML Attribute Equals">
+    				<regex>\w[\w\:\_\-]*(=+)</regex>
+    			</keywords>
+    
+    			<keywords id="HTML Attribute Content" scope="markup.tag.attribute.value">
+    				<regex>\w[\w_\-]*=(\"[^\"]+?\")</regex>
+    				<regex>\w[\w_\-]*=(\'[^\']+?\')</regex>
+    				<regex>\w[\w_\-]*=(\([^\(\)]+?\))</regex>
+    				<regex>\w[\w_\-]*=(\[[^\[\]]+?\])</regex>
+    				<regex>\w[\w_\-]*=(\{[^\{\}]+?\})</regex>
+    				<regex>\w[\w_\-]*=(\{[^\{\}]+?\})</regex>
+    			</keywords>
 
-			<state id="Slim Comment" color="#008627" font-style="italic" useforautocomplete="no">
-				<begin><regex>^\s*\/</regex></begin>
-				<end><regex>[\r\n]</regex></end>
-			</state>
 
-			<keywords id="HTML Attribute" color="#b05400" useforautocomplete="no">
-				<regex>(\w[\w\:\_\-]*)=</regex>
-			</keywords>
 
-			<keywords id="HTML Attribute Equals" color="#a60096" useforautocomplete="no">
-				<regex>\w[\w\:\_\-]*(=+)</regex>
-			</keywords>
+    			<keywords id="Dynamic Attribute" scope="markup.tag.attribute.name">
+    				<regex>\w[\w\:\_\-]*=+([\w\:\_\-]+\([^\(\)]*\))</regex>
+    			</keywords>
+    
+    			<state id="Dynamic Content" scope="markup.tag.attribute.value">
+    				<begin><regex>\s=+</regex></begin>
+    				<end><regex>[\r\n]</regex></end>
+    			</state>
 
-			<keywords id="HTML Attribute Content" color="#3c00ba" useforautocomplete="no">
-				<regex>\w[\w_\-]*=(\"[^\"]+?\")</regex>
-				<regex>\w[\w_\-]*=(\'[^\']+?\')</regex>
-				<regex>\w[\w_\-]*=(\([^\(\)]+?\))</regex>
-				<regex>\w[\w_\-]*=(\[[^\[\]]+?\])</regex>
-				<regex>\w[\w_\-]*=(\{[^\{\}]+?\})</regex>
-				<regex>\w[\w_\-]*=(\{[^\{\}]+?\})</regex>
-			</keywords>
 
-			<keywords id="Dynamic Attribute" color="#910018" useforautocomplete="no">
-				<regex>\w[\w\:\_\-]*=+([\w\:\_\-]+\([^\(\)]*\))</regex>
-			</keywords>
 
-			<state id="Dynamic Content" color="#910018" useforautocomplete="no">
-				<begin><regex>\s=+</regex></begin>
-				<end><regex>[\r\n]</regex></end>
-			</state>
+    			<keywords id="Nested Static Content" scope="markup.tag.attribute.value">
+    				<regex>^\s*([|'])</regex>
+    			</keywords>
 
-			<keywords id="Nested Static Content" color="#3c00ba" useforautocomplete="no">
-				<regex>^\s*([|'])</regex>
-			</keywords>
 
-			<state id="Ruby Code Bypassing Escape" color="#910018" useforautocomplete="no">
-				<begin><regex>\#\{\{</regex></begin>
-				<end><regex>\}\}</regex></end>
-			</state>
-
-			<state id="Ruby Code" color="#910018" useforautocomplete="no">
-				<begin><regex>\#\{</regex></begin>
-				<end><regex>\}</regex></end>
-            </state>
-
-			<state id="Slim Control Logic" color="#910018" useforautocomplete="no">
-				<begin><regex>^\s*-</regex></begin>
-				<end><regex>[\r\n]</regex></end>
-			</state>
-
-			<keywords id="Slim Engine" color="#910018" useforautocomplete="no">
-				<regex>^\s*(\w[\w_\-]*\:)</regex>
-			</keywords>
+    
+    			<state id="Ruby Code Bypassing Escape" scope="language.function">
+    				<begin><regex>\#\{\{</regex></begin>
+    				<end><regex>\}\}</regex></end>
+    			</state>
+    
+    			<state id="Ruby Code" scope="language.function">
+    				<begin><regex>\#\{</regex></begin>
+    				<end><regex>\}</regex></end>
+                </state>
+    
+    			<state id="Slim Control Logic" scope="language.function">
+    				<begin><regex>^\s*-</regex></begin>
+    				<end><regex>[\r\n]</regex></end>
+    			</state>
+    
+    			<keywords id="Slim Engine" scope="language.function">
+    				<regex>^\s*(\w[\w_\-]*\:)</regex>
+    			</keywords>
 
         </default>
     </states>
