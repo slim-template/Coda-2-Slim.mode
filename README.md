@@ -28,5 +28,6 @@ Multi-line blocks are not handled correctly. I don't think there is a way to mat
 # Author
 
 James A. Overton (james@overton.ca)
+
 Updated for Coda 2 by Nate Walton 
 
