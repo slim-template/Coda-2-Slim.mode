@@ -4,7 +4,7 @@
 <syntax>
     <head>
         <name>Slim</name>
-        <!-- See http://slim-lang.com/docs.html -->
+        <!-- See http://slim-template.github.io/docs.html -->
         <!-- Known bugs: does not handle multi-line blocks. -->
 
         <!-- <autocompleteoptions use-spelling-dictionary="no" /> -->
@@ -20,95 +20,95 @@
 
     <states>
         <default id="Base">
-        
-    			<keywords id="HTML Element" scope="markup.tag" useautocompletefrommode="HTML" foldable="no" indent="yes">
-    				<regex>^\s*(\w[\w\:\_\-]*)</regex>
-    			</keywords>
-    
-    			<keywords id="HTML ID Shortcut" scope="style.value.keyword">
-    				<regex>^\s*[\w\:\_\-\.]*(\#[\w\:\_\-]*)</regex>
-    			</keywords>
-    
-    			<keywords id="HTML Class Shortcut" scope="style.value.keyword">
-    				<regex>^\s*[\w\:\_\-\#]*(\.[\w\:\_\-\.]*)</regex>
-    			</keywords>
 
+                        <keywords id="HTML Element" scope="markup.tag" useautocompletefrommode="HTML" foldable="no" indent="yes">
+                                <regex>^\s*(\w[\w\:\_\-]*)</regex>
+                        </keywords>
 
-    
-    			<state id="HTML Comment" type="comment" scope="style.comment">
-    				<begin><regex>^\s*\/[\!\[]</regex></begin>
-    				<end><regex>[\r\n]</regex></end>
-    				
-    				<import mode="Base" state="EmailAndURLContainerState" keywords-only="yes"/>
-    			</state>
-    
-    			<state id="Slim Comment" type="comment" scope="style.comment">
-    				<begin>
-    				  <regex>^\s*\/</regex>
-    				</begin>
-    				<end>
-    				  <regex>[\r\n]</regex>
-    				</end>
-    				
-    				<import mode="Base" state="EmailAndURLContainerState" keywords-only="yes"/>
-    			</state>
+                        <keywords id="HTML ID Shortcut" scope="style.value.keyword">
+                                <regex>^\s*[\w\:\_\-\.]*(\#[\w\:\_\-]*)</regex>
+                        </keywords>
 
-    			
-    
-    			<keywords id="HTML Attribute" scope="markup.tag.attribute.name">
-    				<regex>(\w[\w\:\_\-]*)=</regex>
-    			</keywords>
-    
-    			<keywords id="HTML Attribute Equals">
-    				<regex>\w[\w\:\_\-]*(=+)</regex>
-    			</keywords>
-    
-    			<keywords id="HTML Attribute Content" scope="markup.tag.attribute.value">
-    				<regex>\w[\w_\-]*=(\"[^\"]+?\")</regex>
-    				<regex>\w[\w_\-]*=(\'[^\']+?\')</regex>
-    				<regex>\w[\w_\-]*=(\([^\(\)]+?\))</regex>
-    				<regex>\w[\w_\-]*=(\[[^\[\]]+?\])</regex>
-    				<regex>\w[\w_\-]*=(\{[^\{\}]+?\})</regex>
-    				<regex>\w[\w_\-]*=(\{[^\{\}]+?\})</regex>
-    			</keywords>
+                        <keywords id="HTML Class Shortcut" scope="style.value.keyword">
+                                <regex>^\s*[\w\:\_\-\#]*(\.[\w\:\_\-\.]*)</regex>
+                        </keywords>
 
 
 
-    			<keywords id="Dynamic Attribute" scope="markup.tag.attribute.name">
-    				<regex>\w[\w\:\_\-]*=+([\w\:\_\-]+\([^\(\)]*\))</regex>
-    			</keywords>
-    
-    			<state id="Dynamic Content" scope="markup.tag.attribute.value">
-    				<begin><regex>\s=+</regex></begin>
-    				<end><regex>[\r\n]</regex></end>
-    			</state>
+                        <state id="HTML Comment" type="comment" scope="style.comment">
+                                <begin><regex>^\s*\/[\!\[]</regex></begin>
+                                <end><regex>[\r\n]</regex></end>
+
+                                <import mode="Base" state="EmailAndURLContainerState" keywords-only="yes"/>
+                        </state>
+
+                        <state id="Slim Comment" type="comment" scope="style.comment">
+                                <begin>
+                                  <regex>^\s*\/</regex>
+                                </begin>
+                                <end>
+                                  <regex>[\r\n]</regex>
+                                </end>
+
+                                <import mode="Base" state="EmailAndURLContainerState" keywords-only="yes"/>
+                        </state>
 
 
 
-    			<keywords id="Nested Static Content" scope="markup.tag.attribute.value">
-    				<regex>^\s*([|'])</regex>
-    			</keywords>
+                        <keywords id="HTML Attribute" scope="markup.tag.attribute.name">
+                                <regex>(\w[\w\:\_\-]*)=</regex>
+                        </keywords>
+
+                        <keywords id="HTML Attribute Equals">
+                                <regex>\w[\w\:\_\-]*(=+)</regex>
+                        </keywords>
+
+                        <keywords id="HTML Attribute Content" scope="markup.tag.attribute.value">
+                                <regex>\w[\w_\-]*=(\"[^\"]+?\")</regex>
+                                <regex>\w[\w_\-]*=(\'[^\']+?\')</regex>
+                                <regex>\w[\w_\-]*=(\([^\(\)]+?\))</regex>
+                                <regex>\w[\w_\-]*=(\[[^\[\]]+?\])</regex>
+                                <regex>\w[\w_\-]*=(\{[^\{\}]+?\})</regex>
+                                <regex>\w[\w_\-]*=(\{[^\{\}]+?\})</regex>
+                        </keywords>
 
 
-    
-    			<state id="Ruby Code Bypassing Escape" scope="language.function">
-    				<begin><regex>\#\{\{</regex></begin>
-    				<end><regex>\}\}</regex></end>
-    			</state>
-    
-    			<state id="Ruby Code" scope="language.function">
-    				<begin><regex>\#\{</regex></begin>
-    				<end><regex>\}</regex></end>
+
+                        <keywords id="Dynamic Attribute" scope="markup.tag.attribute.name">
+                                <regex>\w[\w\:\_\-]*=+([\w\:\_\-]+\([^\(\)]*\))</regex>
+                        </keywords>
+
+                        <state id="Dynamic Content" scope="markup.tag.attribute.value">
+                                <begin><regex>\s=+</regex></begin>
+                                <end><regex>[\r\n]</regex></end>
+                        </state>
+
+
+
+                        <keywords id="Nested Static Content" scope="markup.tag.attribute.value">
+                                <regex>^\s*([|'])</regex>
+                        </keywords>
+
+
+
+                        <state id="Ruby Code Bypassing Escape" scope="language.function">
+                                <begin><regex>\#\{\{</regex></begin>
+                                <end><regex>\}\}</regex></end>
+                        </state>
+
+                        <state id="Ruby Code" scope="language.function">
+                                <begin><regex>\#\{</regex></begin>
+                                <end><regex>\}</regex></end>
                 </state>
-    
-    			<state id="Slim Control Logic" scope="language.function">
-    				<begin><regex>^\s*-</regex></begin>
-    				<end><regex>[\r\n]</regex></end>
-    			</state>
-    
-    			<keywords id="Slim Engine" scope="language.function">
-    				<regex>^\s*(\w[\w_\-]*\:)</regex>
-    			</keywords>
+
+                        <state id="Slim Control Logic" scope="language.function">
+                                <begin><regex>^\s*-</regex></begin>
+                                <end><regex>[\r\n]</regex></end>
+                        </state>
+
+                        <keywords id="Slim Engine" scope="language.function">
+                                <regex>^\s*(\w[\w_\-]*\:)</regex>
+                        </keywords>
 
         </default>
     </states>

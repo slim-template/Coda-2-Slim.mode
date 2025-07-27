@@ -1,6 +1,6 @@
 # Slim.mode
 
-[Slim](http://slim-lang.com) is a beautiful, lightweight templating engine. [Coda 2 Slim.mode](https://github.com/nwalton3/Coda-2-Slim.mode) is a Slim syntax definition for Coda 2, so you can enjoy the benefits of syntax highlighting while you edit.
+[Slim](http://slim-template.github.io) is a beautiful, lightweight templating engine. [Coda 2 Slim.mode](https://github.com/nwalton3/Coda-2-Slim.mode) is a Slim syntax definition for Coda 2, so you can enjoy the benefits of syntax highlighting while you edit.
 
 # Installation
 
@@ -29,5 +29,4 @@ Multi-line blocks are not handled correctly. I don't think there is a way to mat
 
 James A. Overton (james@overton.ca)
 
-Updated for Coda 2 by Nate Walton 
-
+Updated for Coda 2 by Nate Walton
